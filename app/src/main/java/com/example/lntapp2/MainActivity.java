@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.lntapp2.database.DbAccessObj;
 
@@ -29,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG,"onCreate");
         nameEditText =  findViewById(R.id.editTextName);
         pwdEditText = findViewById(R.id.editTextPwd);
-        dbAccessObj = new DbAccessObj();
+        dbAccessObj = new DbAccessObj(this);
+        dbAccessObj.openDb();
     }
     @Override
     protected void onStart() {
@@ -132,7 +134,13 @@ public class MainActivity extends AppCompatActivity {
                 dbAccessObj.createRow(title,subtitle);
                 break;
             case R.id.buttonget:
+                //get the data from db
+                String data =  dbAccessObj.readRow();
+                //set the data onto textview
+                TextView dbTextView = findViewById(R.id.textViewdb);
+                dbTextView.setText(data);
                 break;
+
         }
     }
 }

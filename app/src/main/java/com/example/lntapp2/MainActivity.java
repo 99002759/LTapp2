@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CallLog;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.CursorAdapter;
@@ -44,14 +46,22 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Log.i(TAG,"onStart");
         ListView dbListView = findViewById(R.id.dblistview);
-        Uri uriSms = Uri.parse("content://sms/inbox");
-        Cursor dataCursor =  getContentResolver().query(uriSms,null,null,null,null);
+        //Uri uriSms = Uri.parse("content://sms/inbox");
+        //Cursor dataCursor =  getContentResolver().query(uriSms,null,null,null,null);
+        //Uri allContacts = Uri.parse("content://contacts/people");
+        //Cursor dataCursor =  getContentResolver().query(allContacts,null,null,null,null);
+        Uri callOgUri = CallLog.Calls.CONTENT_URI;
+        Cursor dataCursor =  getContentResolver().query(callOgUri,null,null,null,null);
         // Cursor dataCursor = dbAccessObj.getRows();
         //put the data into adapter
         CursorAdapter adapter = new SimpleCursorAdapter(this,
                 R.layout.row_listview,
                 dataCursor,
-                new String[]{"body","address"},
+               // new String[]{"body","address"},
+               // new String[] {
+                        //ContactsContract.Contacts.DISPLAY_NAME,
+                       // ContactsContract.Contacts._ID },
+                new String[]{CallLog.Calls.NUMBER,CallLog.Calls.CACHED_NAME},
                 //FeedEntry.COLUMN_NAME_TITLE,FeedEntry.COLUMN_NAME_SUBTITLE},
                 //"title","subtitle"},
                 new int[] {R.id.textviewRow,R.id.textViewsubtitle});

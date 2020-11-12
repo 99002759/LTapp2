@@ -13,6 +13,6 @@ public class RecycleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recycle);
         languagesData = new String[]{"english","hindi","urdu","arabic","kannada"};
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        MyAdapter adapter = new MyAdapter(languagesData);
+        //MyAdapter adapter = new MyAdapter(languagesData);
     }
 }
